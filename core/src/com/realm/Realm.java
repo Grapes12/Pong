@@ -12,28 +12,42 @@ import java.util.*;
 
 public class Realm extends Game {
 	ShapeRenderer shape;
-	ArrayList<Ball> balls = new ArrayList<>();
-	Random r = new Random();
+	//ArrayList<Ball> balls = new ArrayList<>();
+	//Random r = new Random();
+	Ball ball;
+	Paddle paddle;
 
 	@Override
 	public void create() {
 		shape = new ShapeRenderer();
+		ball = new Ball(50, 50, 15, 5, 5);
+		paddle = new Paddle(100);
+		/*
 		for (int i = 0; i < 10; i++) {
 			int radius = r.nextInt(50);
 			balls.add(new Ball(r.nextInt(Gdx.graphics.getWidth() - 2 * radius) + radius,
 					r.nextInt(Gdx.graphics.getHeight() - 2 * radius) + radius,
 					radius, r.nextInt(15), r.nextInt(15)));
 		}
+		*/
 	}
 
 	@Override
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		shape.begin(ShapeRenderer.ShapeType.Filled);
+		/*
 		for (Ball ball : balls) {
 			ball.update();
 			ball.draw(shape);
 		}
+		 */
+
+		paddle.update(Gdx.input.getX());
+		paddle.draw(shape);
+		ball.checkCollision(paddle);
+		ball.update();
+		ball.draw(shape);
 		shape.end();
 	}
 }
