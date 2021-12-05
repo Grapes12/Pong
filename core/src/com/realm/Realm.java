@@ -1,6 +1,6 @@
 package com.realm;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -9,7 +9,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.GL20;
 import java.util.*;
-public class Realm extends ApplicationAdapter {
+
+public class Realm extends Game {
 	ShapeRenderer shape;
 	ArrayList<Ball> balls = new ArrayList<>();
 	Random r = new Random();
@@ -18,16 +19,16 @@ public class Realm extends ApplicationAdapter {
 	public void create() {
 		shape = new ShapeRenderer();
 		for (int i = 0; i < 10; i++) {
-			balls.add(new Ball(r.nextInt(Gdx.graphics.getWidth()),
-					r.nextInt(Gdx.graphics.getHeight()),
-					r.nextInt(100), r.nextInt(15), r.nextInt(15)));
+			int radius = r.nextInt(50);
+			balls.add(new Ball(r.nextInt(Gdx.graphics.getWidth() - 2 * radius) + radius,
+					r.nextInt(Gdx.graphics.getHeight() - 2 * radius) + radius,
+					radius, r.nextInt(15), r.nextInt(15)));
 		}
 	}
 
 	@Override
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 		shape.begin(ShapeRenderer.ShapeType.Filled);
 		for (Ball ball : balls) {
 			ball.update();
