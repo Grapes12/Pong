@@ -19,8 +19,9 @@ public class Realm extends Game {
 
 	@Override
 	public void create() {
+		System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
 		shape = new ShapeRenderer();
-		ball = new Ball(50, 50, 15, 5, 5);
+		ball = new Ball(500, 200, 10, 7, 7);
 		paddle = new Paddle(100);
 		/*
 		for (int i = 0; i < 10; i++) {
@@ -42,12 +43,12 @@ public class Realm extends Game {
 			ball.draw(shape);
 		}
 		 */
-
 		paddle.update(Gdx.input.getX());
 		paddle.draw(shape);
 		ball.checkCollision(paddle);
 		ball.update();
 		ball.draw(shape);
 		shape.end();
+
 	}
 }
