@@ -1,10 +1,6 @@
 package com.realm;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.GL20;
@@ -20,7 +16,6 @@ public class Realm extends Game {
 
 	@Override
 	public void create() {
-		System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
 		shape = new ShapeRenderer();
 		ball = new Ball(500, 400, 10, 7, 7);
 		paddle = new Paddle(100);
@@ -40,7 +35,6 @@ public class Realm extends Game {
 			}
 		}
 	}
-
 	@Override
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
