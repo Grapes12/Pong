@@ -16,12 +16,13 @@ public class Realm extends Game {
 	//Random r = new Random();
 	Ball ball;
 	Paddle paddle;
+	ArrayList<Block> blocks = new ArrayList<>();
 
 	@Override
 	public void create() {
 		System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
 		shape = new ShapeRenderer();
-		ball = new Ball(500, 200, 10, 7, 7);
+		ball = new Ball(500, 400, 10, 7, 7);
 		paddle = new Paddle(100);
 		/*
 		for (int i = 0; i < 10; i++) {
@@ -31,6 +32,13 @@ public class Realm extends Game {
 					radius, r.nextInt(15), r.nextInt(15)));
 		}
 		*/
+		int blockWidth = 62;
+		int blockHeight = 20;
+		for (int y = 0; y < Gdx.graphics.getHeight()/2; y += blockHeight + 10) {
+			for (int x = 0; x < Gdx.graphics.getWidth(); x += blockWidth + 10) {
+				blocks.add(new Block(x, y, blockWidth, blockHeight));
+			}
+		}
 	}
 
 	@Override
@@ -43,6 +51,18 @@ public class Realm extends Game {
 			ball.draw(shape);
 		}
 		 */
+		for (Block b : blocks) {
+			b.draw(shape);
+			ball.checkCollision(b);
+		}
+		for (int i = 0; i < blocks.size(); i++) {
+			Block b = blocks.get(i);
+			if (b.destroyed) {
+				blocks.remove(b);
+				// we need to decrement i when a ball gets removed, otherwise we skip a ball!
+				i--;
+			}
+		}
 		paddle.update(Gdx.input.getX());
 		paddle.draw(shape);
 		ball.checkCollision(paddle);

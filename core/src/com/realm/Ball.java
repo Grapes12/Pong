@@ -3,9 +3,12 @@ package com.realm;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.*;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
+
+import java.awt.*;
+import java.awt.geom.Area;
 import java.math.*;
 public class Ball {
 
@@ -30,7 +33,7 @@ public class Ball {
 
     }
     public void checkCollision(Paddle paddle){
-        if(collidesWith(paddle)){
+        if(CircleRectCollision(circle, paddle.getRect())){
             color = Color.GREEN;
             if(circle.y < paddle.getRect().y + paddle.getRect().height && circle.y > paddle.getRect().y - paddle.getRect().height) {
                 xSpeed = -xSpeed;
@@ -43,11 +46,11 @@ public class Ball {
             color = Color.WHITE;
         }
     }
-    private boolean collidesWith(Paddle paddle) {
-        if(CircleRectCollision(circle, paddle.getRect())){
-            return true;
+    public void checkCollision(Block block) {
+        if(CircleRectCollision(circle, block.getRect())){
+            ySpeed = - ySpeed;
+            block.destroyed = true;
         }
-        return false;
     }
     private boolean CircleRectCollision(Circle circle, Rectangle rect)
     {
@@ -65,6 +68,7 @@ public class Ball {
 
         return cornerDistance_sq <= (Math.pow(circle.radius,2));
     }
+
     public void draw(ShapeRenderer shape) {
         shape.setColor(color);
         shape.circle(circle.x, Gdx.graphics.getHeight() - circle.y, circle.radius);
