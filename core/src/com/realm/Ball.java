@@ -25,7 +25,7 @@ public class Ball {
         if (circle.x - circle.radius < 0 || circle.x + circle.radius > Gdx.graphics.getWidth()) {
             xSpeed = -xSpeed;
         }
-        if (circle.y - circle.radius < 0 || circle.y + circle.radius > Gdx.graphics.getHeight()) {
+        else if (circle.y - circle.radius < 0 || circle.y + circle.radius > Gdx.graphics.getHeight()) {
             ySpeed = -ySpeed;
         }
         circle.x += xSpeed;
